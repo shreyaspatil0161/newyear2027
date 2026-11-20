@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New Year Wishes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#f6c453;--gold-lt:#fff3c4;--gold-dk:#b8862b;--navy:#050d2e;--blue:#0b2a7a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--gold-lt);font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;
+background:
+radial-gradient(1.5px 1.5px at 12% 18%,#fff8 50%,transparent),radial-gradient(1.5px 1.5px at 78% 12%,#fff8 50%,transparent),
+radial-gradient(1px 1px at 33% 40%,#fff7 50%,transparent),radial-gradient(1.5px 1.5px at 90% 55%,#fff8 50%,transparent),
+radial-gradient(1px 1px at 55% 72%,#fff7 50%,transparent),radial-gradient(1.5px 1.5px at 8% 80%,#fff8 50%,transparent),
+radial-gradient(ellipse at 50% 0%,#1a46bd 0%,#0b2a7a 38%,#050d2e 100%);background-attachment:fixed}
+.gold{background:linear-gradient(180deg,var(--gold-lt) 0%,var(--gold) 50%,var(--gold-dk) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 12px #f6c45355)}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+main{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:0 20px}
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 0 90px}
+h1{font-family:'Cinzel Decorative',Georgia,serif;font-weight:900;font-size:clamp(2.2rem,8vw,5.2rem);line-height:1.1;margin:0}
+#yr{display:block;font-size:1.25em;letter-spacing:.06em}
+#who{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(2rem,7vw,3.6rem);margin:.2em 0 0;min-height:1.2em;word-break:break-word}
+#sub{margin:.6em 0 1em;font-size:1.3rem;color:#ffe9a3cc}
+#cd{display:flex;gap:clamp(8px,2.5vw,22px);justify-content:center}
+.u{min-width:clamp(66px,19vw,128px);padding:14px 6px 10px;border:1.5px solid var(--gold);background:#06134a99;border-radius:6px;box-shadow:0 0 24px #f6c45326 inset}
+.u b{display:block;font-family:'Cinzel Decorative',Georgia,serif;font-size:clamp(1.7rem,7vw,3.4rem);font-variant-numeric:tabular-nums}
+.u span{font-size:1.05rem;color:#ffe9a3bb}
+.namebox{margin-top:34px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+input{font:inherit;font-size:1.2rem;padding:11px 16px;border-radius:999px;border:1.5px solid var(--gold);background:#06134acc;color:var(--gold-lt);width:min(300px,80vw);text-align:center}
+input::placeholder{color:#ffe9a380}
+button{font:inherit;font-weight:600;font-size:1.1rem;padding:10px 20px;border-radius:999px;border:1.5px solid var(--gold);background:linear-gradient(180deg,#f9d77a,#d9a032);color:#1a1200;cursor:pointer}
+button.ghost{background:#06134acc;color:var(--gold-lt)}
+button:hover{filter:brightness(1.1)}
+:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#wish{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:4;width:min(92vw,580px);padding:18px 26px;text-align:center;font-size:clamp(1.35rem,4.2vw,1.9rem);line-height:1.35;border:2px solid var(--gold);border-radius:16px;background:#06134af5;box-shadow:0 0 36px #f6c45355,0 10px 30px #0008;opacity:0;transform:translateX(-50%) scale(.4);pointer-events:none}
+#wish.show{animation:pop .55s cubic-bezier(.34,1.56,.64,1) forwards}
+#wish.hide{animation:unpop .4s ease-in forwards}
+@keyframes pop{from{opacity:0;transform:translateX(-50%) scale(.4)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+@keyframes unpop{from{opacity:1;transform:translateX(-50%) scale(1)}to{opacity:0;transform:translateX(-50%) translateY(-14px) scale(.85)}}
+.bell{position:fixed;top:env(safe-area-inset-top,0px);width:clamp(44px,9vw,74px);height:auto;z-index:4;cursor:pointer;transform-origin:50% 0;animation:swing 2.6s ease-in-out infinite;background:none;border:0;padding:0}
+.bell.l{left:4vw}.bell.r{right:4vw;animation-delay:-1.3s}
+.bell svg{width:100%;height:auto;display:block}
+@keyframes swing{0%,100%{transform:rotate(14deg)}50%{transform:rotate(-14deg)}}
+#banner{position:fixed;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;opacity:0;transition:opacity 1s;padding:20px}
+#banner.on{opacity:1}
+#banner h1{font-size:clamp(2.6rem,11vw,7.5rem);text-shadow:0 0 40px #000a}
+#banner p{font-style:italic;font-size:clamp(1.8rem,7vw,4rem);margin:.2em 0 0}
+#ctl{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(0deg,#050d2ee6,transparent)}
+#gate{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:#050d2ed9;backdrop-filter:blur(3px)}
+#gate p{max-width:30ch;margin:1em 0 1.6em}
+#gate .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+footer{text-align:center;margin-top:60px;color:#ffe9a399}
+@media (prefers-reduced-motion:reduce){.bell{animation:none}#wish.show{animation:none;opacity:1;transform:translateX(-50%)}#wish.hide{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#f6c453"/><stop offset="1" stop-color="#b8862b"/></linearGradient>
+<symbol id="b" viewBox="0 0 64 76"><path d="M32 6c-3 0-5 2-5 5-10 3-16 12-16 24 0 12-5 16-8 22h58c-3-6-8-10-8-22 0-12-6-21-16-24 0-3-2-5-5-5z" fill="url(#bg)"/><circle cx="32" cy="64" r="7" fill="url(#bg)"/></symbol></defs></svg>
+
+<button class="bell l" id="b1" aria-label="Ring the bell"><svg viewBox="0 0 64 76"><use href="#b"/></svg></button>
+<button class="bell r" id="b2" aria-label="Ring the bell"><svg viewBox="0 0 64 76"><use href="#b"/></svg></button>
+<canvas id="fx"></canvas>
+
+<main>
+  <section class="hero">
+    <h1 class="gold">Happy New Year <span id="yr"></span></h1>
+    <div id="who" class="gold" aria-live="polite"></div>
+    <p id="sub"></p>
+    <div id="cd" role="timer">
+      <div class="u"><b class="gold" id="d">00</b><span>Days</span></div>
+      <div class="u"><b class="gold" id="h">00</b><span>Hours</span></div>
+      <div class="u"><b class="gold" id="m">00</b><span>Minutes</span></div>
+      <div class="u"><b class="gold" id="s">00</b><span>Seconds</span></div>
+    </div>
+    <div class="namebox">
+      <input id="nm" maxlength="24" placeholder="Type your name" autocomplete="given-name" aria-label="Your name">
+      <button id="set">Add my name</button>
+    </div>
+  </section>
+
+</main>
+
+<div id="wish" role="status" aria-live="polite"><span class="gold" id="wt"></span></div>
+
+<div id="banner" aria-hidden="true"><h1 class="gold">Happy New Year <span id="yr2"></span></h1><p class="gold" id="who2"></p></div>
+
+<div id="ctl">
+  <div class="ctl-start" hidden></div>
+  <button class="ghost" id="tMus"></button>
+  <button class="ghost" id="prev">Preview midnight</button>
+</div>
+
+<div id="gate">
+  <h1 class="gold">Happy New Year <span id="yr3" style="display:inline"></span></h1>
+  <p>Turn on sound for jingle bells and the New Year song.</p>
+  <div class="row"><button id="goSound">Enter with sound</button><button class="ghost" id="goQuiet">Enter silently</button></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const now=new Date();
+const celebrate=now.getMonth()===0&&now.getDate()===1;
+const year=celebrate?now.getFullYear():now.getFullYear()+1;
+let target=new Date(year,0,1,0,0,0);
+let done=celebrate,name='',finaleEnd=0;
+['yr','yr2','yr3'].forEach(i=>$('#'+i).textContent=year);
+
+/* ---------- wishes ---------- */
+const wishes=[
+"may the new year open every door you have been knocking on.",
+"may your days be bright, your nights peaceful and your heart full.",
+"wishing you health that never wavers and happiness that never fades.",
+"may every sunrise of {y} bring you a fresh reason to smile.",
+"may your dreams grow bolder and your worries grow smaller.",
+"here’s to new beginnings, kind people and beautiful surprises.",
+"may your pockets be full of luck and your life full of love.",
+"may you laugh more, worry less and celebrate every small win.",
+"wishing you success in everything you try and courage in everything you fear.",
+"may this year gift you calm mornings and golden evenings.",
+"may old hurts heal and new joys find you.",
+"may your home be filled with warmth, music and good food.",
+"wishing you endless adventures and safe journeys home.",
+"may the people you love stay close, and the ones you miss visit you in dreams.",
+"may your hard work finally meet its well-earned reward.",
+"let this be the year you choose yourself first.",
+"may every challenge turn into a story you’re proud to tell.",
+"wishing you peace of mind, strength of heart and a sparkle in your eyes.",
+"may the jingle of bells follow you all year long.",
+"may friendship, family and fortune walk beside you always.",
+"here’s to a year that’s kinder, brighter and braver than the last.",
+"may your life shine as golden as the first light of the year.",
+"wishing you moments so good you’ll want to pause them.",
+"cheers to you, and to everything wonderful that’s coming!"];
+const F=t=>{t=t.replace('{y}',year);return name?name+', '+t:t[0].toUpperCase()+t.slice(1)};
+let wi=0;
+function showWish(){$('#wt').textContent=F(wishes[wi])}
+/* each wish pops up, stays a few seconds, pops away, then the next one appears */
+function popWish(){const e=$('#wish');
+ if($('#banner').classList.contains('on')){setTimeout(popWish,1000);return}
+ showWish();e.classList.remove('hide');e.classList.add('show');
+ if(AC&&sfxOn)bell(1319,AC.currentTime,.08,1.2);
+ setTimeout(()=>{e.classList.remove('show');e.classList.add('hide');wi=(wi+1)%wishes.length;setTimeout(popWish,800)},4500)}
+function setName(){name=$('#nm').value.trim();$('#who').textContent=name;$('#who2').textContent=name;
+ try{localStorage.setItem('nyname',name)}catch(e){}
+ showWish();if(name)$('#nm').blur()}
+$('#set').onclick=()=>{setName();ensure();bell(880,AC&&AC.currentTime,.2,1.6)};
+$('#nm').addEventListener('keydown',e=>{if(e.key==='Enter')$('#set').click()});
+try{const n=localStorage.getItem('nyname');if(n){$('#nm').value=n;name=n;$('#who').textContent=n;$('#who2').textContent=n}}catch(e){}
+setTimeout(popWish,900);
+
+/* ---------- countdown ---------- */
+const p2=n=>String(n).padStart(2,'0');
+function tick(){let d=target-Date.now();
+ if(d<=0){d=0;if(!done){done=true;finale()}}
+ const s=Math.floor(d/1000);
+ $('#d').textContent=p2(Math.floor(s/86400));$('#h').textContent=p2(Math.floor(s%86400/3600));
+ $('#m').textContent=p2(Math.floor(s%3600/60));$('#s').textContent=p2(s%60);
+ $('#sub').textContent=done?'It’s midnight. Happy New Year!':'Counting down to 1 January '+year}
+setInterval(tick,200);tick();
+
+/* ---------- fireworks ---------- */
+const cv=$('#fx'),c=cv.getContext('2d');let W,H;
+function size(){const r=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;c.setTransform(r,0,0,r,0,0)}
+addEventListener('resize',size);size();
+const cols=['#ffd36b','#fff3c4','#ff6b8b','#6bd0ff','#a78bfa','#7dffb0','#ff9f43','#ffffff'];
+let rockets=[],parts=[];
+function launch(big){if(rockets.length>60)return;
+ const ty=H*(.1+Math.random()*.4);
+ rockets.push({x:W*(.06+Math.random()*.88),y:H+8,ty,vy:-(H-ty)/(32+Math.random()*16),vx:(Math.random()-.5)*.8,big})}
+function volley(n,big){for(let i=0;i<n;i++)setTimeout(()=>launch(big),Math.random()*220)}
+function explode(x,y,big){
+ const col=[cols[Math.random()*cols.length|0],cols[Math.random()*cols.length|0]];
+ const n=big?120:72,sc=Math.max(.6,Math.min(1.25,W/1000))*(big?1.25:1),ring=Math.random()<.35;
+ for(let i=0;i<n&&parts.length<3000;i++){const a=Math.PI*2*i/n,s=(ring?4:1.5+Math.random()*4.2)*sc;
+  parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,dec:.011+Math.random()*.012,col:col[i%2],z:1.6+Math.random()*1.6})}
+ bang(big)}
+let last=performance.now();
+function frame(t){const k=Math.min((t-last)/16.67,3);last=t;
+ c.globalCompositeOperation='destination-out';c.fillStyle='rgba(0,0,0,.2)';c.fillRect(0,0,W,H);
+ c.globalCompositeOperation='lighter';
+ for(let i=rockets.length-1;i>=0;i--){const r=rockets[i];r.x+=r.vx*k;r.y+=r.vy*k;
+  c.fillStyle='#ffe9a3';c.fillRect(r.x-1,r.y,2.5,9);
+  if(r.y<=r.ty){explode(r.x,r.y,r.big);rockets.splice(i,1)}}
+ for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.vx*=Math.pow(.985,k);p.vy=p.vy*Math.pow(.985,k)+.045*k;
+  p.x+=p.vx*k;p.y+=p.vy*k;p.l-=p.dec*k;
+  if(p.l<=0){parts.splice(i,1);continue}
+  c.globalAlpha=Math.min(1,p.l*1.4)*(Math.random()<.12?.4:1);c.fillStyle=p.col;c.fillRect(p.x,p.y,p.z,p.z)}
+ c.globalAlpha=1;requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+/* 5 firecrackers every 0.5 seconds */
+setInterval(()=>{if(!document.hidden)volley(5,false)},500);
+setInterval(()=>{if(!document.hidden&&performance.now()<finaleEnd)volley(7,true)},300);
+
+/* ---------- finale ---------- */
+function finale(){
+ finaleEnd=performance.now()+10000;
+ $('#banner').classList.add('on');setTimeout(()=>$('#banner').classList.remove('on'),14000);
+ volley(20,true);setTimeout(()=>volley(16,true),1200);
+ if(AC&&musicOn){mi=0;mnext=AC.currentTime+2.5;music()}
+ if(AC&&sfxOn){const pent=[523,587,659,784,880,1047];for(let i=0;i<18;i++)bell(pent[Math.random()*6|0],AC.currentTime+i*.13,.16,2.2)}}
+$('#prev').onclick=()=>{ensure();done=false;target=new Date(Date.now()+10000);finaleEnd=0;$('#banner').classList.remove('on');window.scrollTo({top:0,behavior:'smooth'})};
+
+/* ---------- audio (synthesized, no files) ---------- */
+let AC,master,noise,sfxOn=false,musicOn=false,lastBang=0,mTimer;
+function ensure(){if(!AC){const A=window.AudioContext||window.webkitAudioContext;if(!A)return;AC=new A();master=AC.createGain();master.gain.value=.8;master.connect(AC.destination);
+ noise=AC.createBuffer(1,AC.sampleRate*1.5,AC.sampleRate);const d=noise.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
+ if(AC.state==='suspended')AC.resume()}
+function crack(t,v,hp,len){const n=AC.createBufferSource();n.buffer=noise;const f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=hp;
+ const g=AC.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+len);
+ n.connect(f);f.connect(g);g.connect(master);n.start(t,Math.random(),len+.02);n.stop(t+len+.02)}
+function bang(big){return;if(!AC||!sfxOn||document.hidden)return;const t=AC.currentTime;if(t-lastBang<.05)return;lastBang=t;
+ const v=big?.4:.2,n=AC.createBufferSource();n.buffer=noise;
+ const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(big?2600:1800,t);f.frequency.exponentialRampToValueAtTime(120,t+.5);
+ const g=AC.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+(big?1.1:.6));
+ n.connect(f);f.connect(g);g.connect(master);n.start(t,Math.random()*.3,1.2);n.stop(t+1.2);
+ const o=AC.createOscillator(),og=AC.createGain();o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(40,t+.25);
+ og.gain.setValueAtTime(v*.8,t);og.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(og);og.connect(master);o.start(t);o.stop(t+.35);
+ for(let i=0;i<(big?7:4);i++)crack(t+.12+Math.random()*.5,v*.22,3500,.03)}
+function bell(f,t,vol,dur){if(!AC)return;t=t||AC.currentTime;
+ [[1,1],[2.76,.5],[5.4,.25],[8.9,.12]].forEach(([r,a])=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f*r;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol*a,t+.005);g.gain.exponentialRampToValueAtTime(.0005,t+dur/(r>2?2.5:1));
+  o.connect(g);g.connect(master);o.start(t);o.stop(t+dur)})}
+function jing(t,v){for(let i=0;i<3;i++)crack(t+i*.035,v,6500,.08)}
+/* Jingle Bells (traditional, public domain) as bell tones */
+const E=329.63,G=392,C=261.63,D=293.66,Fn=349.23,beat=.3;
+/* Auld Lang Syne (traditional New Year song) then Jingle Bells, looping */
+const ALS=[[196,1],[261.63,1.5],[261.63,.5],[261.63,1],[329.63,1],[293.66,1.5],[261.63,.5],[293.66,1],[329.63,1],[261.63,1.5],[261.63,.5],[329.63,1],[392,1],[440,4],
+ [440,1],[392,1.5],[329.63,.5],[329.63,1],[261.63,1],[293.66,1.5],[261.63,.5],[293.66,1],[329.63,1],[261.63,1.5],[220,.5],[220,1],[196,1],[261.63,4]];
+const mel=[...ALS,[E,1],[E,1],[E,2],[E,1],[E,1],[E,2],[E,1],[G,1],[C,1.5],[D,.5],[E,4],
+ [Fn,1],[Fn,1],[Fn,1.5],[Fn,.5],[Fn,1],[E,1],[E,1],[E,.5],[E,.5],[G,1],[G,1],[Fn,1],[D,1],[C,4]];
+let mi=0,mnext=0;
+function music(){clearTimeout(mTimer);if(!AC||!musicOn)return;
+ if(mnext<AC.currentTime)mnext=AC.currentTime+.05;
+ while(mnext<AC.currentTime+.6){const[f,b]=mel[mi];bell(f*2,mnext,.12,b*beat+1.2);jing(mnext,.05);
+  mnext+=b*beat;mi=(mi+1)%mel.length;if(mi===0)mnext+=beat*2}
+ mTimer=setTimeout(music,150)}
+function labels(){$('#tMus').textContent=musicOn?'New Year song and bells: on':'New Year song and bells: off'}
+$('#tMus').onclick=()=>{ensure();musicOn=!musicOn;sfxOn=musicOn;labels();music()};
+[$('#b1'),$('#b2')].forEach(b=>b.onclick=()=>{ensure();const t=AC.currentTime;[784,988,1175].forEach((f,i)=>bell(f,t+i*.09,.2,2));jing(t,.12)});
+function enter(snd){$('#gate').style.display='none';
+ if(snd){ensure();sfxOn=true;musicOn=true;music()}
+ labels();if(celebrate)finale()}
+$('#goSound').onclick=()=>enter(true);$('#goQuiet').onclick=()=>enter(false);
+labels();
+</script>
+</body>
+</html>
